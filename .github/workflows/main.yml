@@ -39,7 +39,6 @@ jobs:
        run: ./gradlew assembleDebug
      - name: Run Ktlint Check
        run: ./gradlew ktlintCheck
-       working-directory: ./stuff
       
     
           
