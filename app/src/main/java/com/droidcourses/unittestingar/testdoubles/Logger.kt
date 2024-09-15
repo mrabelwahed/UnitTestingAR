@@ -1,6 +1,5 @@
 package com.droidcourses.unittestingar.testdoubles
 
 class Logger {
-    fun log(message: String) {
-    }
+    //fun log(message: String) {}
 }

@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class ProfileViewModel(private val profileUseCase: GetUserProfile) : ViewModel() {
-    var _profileUiState = MutableStateFlow<ProfileUIState>(ProfileUIState.Idle)
+   private  var _profileUiState = MutableStateFlow<ProfileUIState>(ProfileUIState.Idle)
     val profileUIState = _profileUiState.asStateFlow()
 
     init {

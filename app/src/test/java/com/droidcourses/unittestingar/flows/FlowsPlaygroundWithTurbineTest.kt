@@ -89,7 +89,8 @@ class FlowsPlaygroundWithTurbineTest {
     fun `test flow consumer with exception`() = runTest {
         val flow = flow {
             emit(1)
-            throw IllegalStateException("error happened")
+            error("error happened")
+//            throw IllegalStateException("error happened")
         }
 
         flow.test {

@@ -70,7 +70,8 @@ class FlowsPlaygroundTest {
         try {
             val flow = flow {
                 emit(1)
-                throw IllegalStateException("error happened")
+                error("error happened")
+//                throw IllegalStateException("")
             }
             flow.collect {
                 res.add(it)
