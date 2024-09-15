@@ -23,6 +23,21 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - run: echo "the job was automatically triggered by ${{github.event_name}} event"
+     - name: Checkout
+       uses: actions/checkout@v4.1.7
+       
+     - name: Setup Java JDK
+       uses: actions/setup-java@v4.3.0
+       with:
+        java-version: 17
+        distribution: 'zulu'
+        cache: gradle
+
+     - name: Grant execute permission for  gradlew   
+       run:  chmod +x gradlew
+     - name: Build with Gradle
+       run: ./gradlew assembleDebug
+    
+          
 
       
