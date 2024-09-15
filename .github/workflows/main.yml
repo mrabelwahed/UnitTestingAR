@@ -37,7 +37,7 @@ jobs:
        run:  chmod +x gradlew
      - name: Build with Gradle
        run: ./gradlew assembleDebug
-       working-directory: ./chapterfourteen
+       working-directory: ./app
     
           
 
