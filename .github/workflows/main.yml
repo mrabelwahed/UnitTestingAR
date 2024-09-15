@@ -38,8 +38,7 @@ jobs:
      - name: Build with Gradle
        run: ./gradlew assembleDebug
      - name: Run Ktlint Check
-       run: ./gradlew ktlintFormat
-       working-directory: ./stuff
+       run: ./gradlew ktlintCheck
       
     
           
