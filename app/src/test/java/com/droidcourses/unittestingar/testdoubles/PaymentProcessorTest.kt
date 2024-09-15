@@ -2,7 +2,7 @@ package com.droidcourses.unittestingar.testdoubles
 
 import io.mockk.every
 import io.mockk.mockk
-import org.junit.Assert.*
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class PaymentProcessorTest {
@@ -17,6 +17,5 @@ class PaymentProcessorTest {
         val result = paymentProcessor.pay(10)
 
         assertTrue(result)
-
     }
 }

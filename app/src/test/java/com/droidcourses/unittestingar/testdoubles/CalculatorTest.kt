@@ -1,17 +1,14 @@
 package com.droidcourses.unittestingar.testdoubles
 
-import io.mockk.coEvery
-import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.slot
 import io.mockk.spyk
 import io.mockk.verify
-import junit.framework.TestCase
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
-class CalculatorTest{
+class CalculatorTest {
     /*
 
       mockk types : strict : default
@@ -31,9 +28,9 @@ class CalculatorTest{
         val dependency2: Dependency2 = mockk()
         every { dependency1.value } returns 3
         every { dependency2.value } returns 4
-        val calculator = Calculator(dependency1,dependency2)
+        val calculator = Calculator(dependency1, dependency2)
         val result = calculator.add()
-        assertEquals(7,result)
+        assertEquals(7, result)
     }
 
     @Test
@@ -41,9 +38,9 @@ class CalculatorTest{
         val dependency1: Dependency1 = mockk(relaxed = true) // 0
         val dependency2: Dependency2 = mockk()
         every { dependency2.value } returns 3
-        val calculator = Calculator(dependency1,dependency2)
+        val calculator = Calculator(dependency1, dependency2)
         val result = calculator.add()
-        assertEquals(3,result)
+        assertEquals(3, result)
     }
 
     @Test
@@ -53,9 +50,9 @@ class CalculatorTest{
         val spyDependency2 = spyk(dependency2)
         every { dependency1.value } returns 3
 //        every { spyDependency2.value } returns 7
-        val calculator = Calculator(dependency1,spyDependency2)
+        val calculator = Calculator(dependency1, spyDependency2)
         val result = calculator.add()
-        assertEquals(7,result)
+        assertEquals(7, result)
     }
 
     @Test
@@ -63,18 +60,18 @@ class CalculatorTest{
         val mathService: MathService = mockk()
         val sut = CalculatorV2(mathService)
 //        val slot = slot<Int>()
-        every { mathService.add(any(), any()) }  answers { arg<Int>(0) + arg<Int>(1)}
-        val res =  sut.add(2)
+        every { mathService.add(any(), any()) } answers { arg<Int>(0) + arg<Int>(1) }
+        val res = sut.add(2)
 
-        assertEquals(12,res)
+        assertEquals(12, res)
 //        assertEquals(2, slot.captured)
         verify {
-          mathService.add(withArg {
-              assertTrue(it == 2)
-          }, any())
+            mathService.add(
+                withArg {
+                    assertTrue(it == 2)
+                },
+                any()
+            )
         }
-
-
-
     }
 }

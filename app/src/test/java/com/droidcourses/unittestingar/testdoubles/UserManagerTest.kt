@@ -1,16 +1,16 @@
 package com.droidcourses.unittestingar.testdoubles
 
 import io.mockk.mockk
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
-class UserManagerTest{
+class UserManagerTest {
 
     @Test
-    fun `test dummy test doubles`(){
+    fun `test dummy test doubles`() {
         val logger: Logger = mockk()
         val userManager = UserManager(logger)
         userManager.addUser(User("exhdsghdsg"))
-        assertEquals(1,userManager.usersList.size)
+        assertEquals(1, userManager.usersList.size)
     }
 }

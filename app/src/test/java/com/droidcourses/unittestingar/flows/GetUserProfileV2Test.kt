@@ -1,26 +1,22 @@
 package com.droidcourses.unittestingar.flows
 
-import app.cash.turbine.test
 import com.droidcourses.unittestingar.coroutines.Friend
 import com.droidcourses.unittestingar.coroutines.Profile
 import com.droidcourses.unittestingar.coroutines.TestingUtils
 import com.droidcourses.unittestingar.coroutines.UserRepository
 import io.mockk.coEvery
 import io.mockk.mockk
+import java.io.IOException
+import kotlin.coroutines.ContinuationInterceptor
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.advanceTimeBy
-import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.runTest
-import org.amshove.kluent.shouldBe
 import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldBeTrue
 import org.junit.Test
-import java.io.IOException
-import kotlin.coroutines.ContinuationInterceptor
 
 class GetUserProfileV2Test {
 
@@ -42,7 +38,7 @@ class GetUserProfileV2Test {
             delay(1000)
             listOf(
                 Friend("1", "Ali"),
-                Friend("2", "Mohamed"),
+                Friend("2", "Mohamed")
             )
         }
         val flow = useCase.getProfileDataSync()
@@ -67,11 +63,11 @@ class GetUserProfileV2Test {
             throw IOException()
         }
 
-           val flow = useCase.getProfileDataSync()
+        val flow = useCase.getProfileDataSync()
 
-            flow.collect { result: Result<Profile> ->
-                result.isFailure.shouldBeTrue()
-            }
+        flow.collect { result: Result<Profile> ->
+            result.isFailure.shouldBeTrue()
+        }
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -86,7 +82,6 @@ class GetUserProfileV2Test {
         // Mock
         var throwError = true
         val profileData = TestingUtils.dummyProfileData
-
 
         coEvery { repo.getName() } coAnswers {
             if (throwError) throw IOException() else profileData.name
@@ -110,7 +105,7 @@ class GetUserProfileV2Test {
         }
 
         advanceTimeBy(1000)
-        throwError  = false
+        throwError = false
         advanceTimeBy(1000)
     }
 }

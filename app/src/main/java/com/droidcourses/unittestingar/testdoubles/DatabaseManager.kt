@@ -1,31 +1,28 @@
 package com.droidcourses.unittestingar.testdoubles
 
-
-interface Database{
+interface Database {
     fun save(data: String)
     fun get(): String
 }
 
-
 // fake impl
-class InMemoryDatabase: Database {
-      var dataHolder: String = ""
+class InMemoryDatabase : Database {
+    var dataHolder: String = ""
     override fun save(data: String) {
-      dataHolder = data
+        dataHolder = data
     }
 
     override fun get(): String {
-        return  dataHolder
+        return dataHolder
     }
-
 }
 
-class DatabaseManager (val database: Database){
-     fun save(data: String) {
+class DatabaseManager(val database: Database) {
+    fun save(data: String) {
         database.save(data)
     }
 
-     fun get(): String {
-     return  database.get()
+    fun get(): String {
+        return database.get()
     }
 }

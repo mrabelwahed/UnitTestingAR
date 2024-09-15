@@ -9,12 +9,15 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.retry
 
-class GetUserProfileV2(private val userRepository: com.droidcourses.unittestingar.coroutines.UserRepository, private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO) {
+class GetUserProfileV2(
+    private val userRepository: com.droidcourses.unittestingar.coroutines.UserRepository,
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+) {
 
     suspend fun getProfileDataSync() = flow {
         println("STARTING FLOW")
-        val name =  userRepository.getName()
-        val rate =  userRepository.getRate()
+        val name = userRepository.getName()
+        val rate = userRepository.getRate()
         val friends = userRepository.getFriends()
 
         val profile = Profile(
@@ -27,7 +30,7 @@ class GetUserProfileV2(private val userRepository: com.droidcourses.unittestinga
     }
         .retry(2) {
             println("STARTING FLOW")
-            ( it is Exception).also {
+            (it is Exception).also {
                 println("BEFORE DELAY")
                 delay(1000)
                 println("AFTER DELAY")
@@ -37,9 +40,7 @@ class GetUserProfileV2(private val userRepository: com.droidcourses.unittestinga
             emit(Result.failure(it))
         }
         .flowOn(ioDispatcher)
-
 }
-
 
 interface UserRepository {
     suspend fun getName(): String
@@ -52,7 +53,7 @@ class FakeUserRepo : UserRepository {
 
     override suspend fun getFriends() = listOf(
         Friend("1", "Ali"),
-        Friend("2", "Mohamed"),
+        Friend("2", "Mohamed")
     )
 
     override suspend fun getRate() = 4.8f
@@ -65,7 +66,7 @@ class FakeUserRepoV2 : UserRepository {
         delay(1000)
         return listOf(
             Friend("1", "Ali"),
-            Friend("2", "Mohamed"),
+            Friend("2", "Mohamed")
         )
     }
 
@@ -74,7 +75,6 @@ class FakeUserRepoV2 : UserRepository {
         return 1.8f
     }
 }
-
 
 data class Profile(
     val name: String,

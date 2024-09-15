@@ -4,10 +4,8 @@ import app.cash.turbine.test
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -18,21 +16,12 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.take
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.TestCoroutineScope
-import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.advanceUntilIdle
-import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.runTest
-import org.amshove.kluent.should
 import org.amshove.kluent.shouldBe
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.Test
@@ -96,11 +85,8 @@ class FlowsPlaygroundWithTurbineTest {
         assertEquals(listOf(1, 2, 3), res)
     }
 
-
     @Test
     fun `test flow consumer with exception`() = runTest {
-
-
         val flow = flow {
             emit(1)
             throw IllegalStateException("error happened")
@@ -111,7 +97,6 @@ class FlowsPlaygroundWithTurbineTest {
             assertEquals("error happened", awaitError().message)
         }
     }
-
 
     @Test
     fun `test cold flow`() = runTest {
@@ -139,13 +124,11 @@ class FlowsPlaygroundWithTurbineTest {
         }
     }
 
-
     @Test
     fun `test stateflow conflated`() = runTest {
         val flow = MutableStateFlow<UIState>(UIState.Loading)
 
         flow.test {
-
             awaitItem() shouldBe UIState.Loading
             flow.tryEmit(UIState.Success)
             awaitItem() shouldBe UIState.Success
@@ -165,10 +148,8 @@ class FlowsPlaygroundWithTurbineTest {
         }
     }
 
-
     @Test
     fun `test shared flows with SharingStarted WhileSubscribed`() = runTest {
-
         val flow = flowOf(
             "Event 1",
             "Event 2",
@@ -194,7 +175,6 @@ class FlowsPlaygroundWithTurbineTest {
 
     @Test
     fun `test shared flows with SharingStarted Lazily`() = runTest {
-
         val flow = flowOf(
             "Event 1",
             "Event 2",
@@ -218,7 +198,6 @@ class FlowsPlaygroundWithTurbineTest {
         coroutineContext.cancelChildren()
     }
 
-
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `collect with eager strategy`() = runTest(UnconfinedTestDispatcher()) {
@@ -239,12 +218,10 @@ class FlowsPlaygroundWithTurbineTest {
 
             coroutineContext.cancelChildren()
         }
-
-
     }
 }
-    sealed class UIState {
-        object Success : UIState()
-        object Error : UIState()
-        object Loading : UIState()
-    }
+sealed class UIState {
+    object Success : UIState()
+    object Error : UIState()
+    object Loading : UIState()
+}

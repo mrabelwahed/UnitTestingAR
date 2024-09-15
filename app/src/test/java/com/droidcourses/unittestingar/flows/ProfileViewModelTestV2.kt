@@ -1,12 +1,11 @@
 package com.droidcourses.unittestingar.flows
 
 import app.cash.turbine.test
-import com.droidcourses.unittestingar.coroutines.Profile
 import com.droidcourses.unittestingar.coroutines.TestingUtils
 import io.mockk.coEvery
 import io.mockk.mockk
+import java.io.IOException
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -16,15 +15,10 @@ import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.amshove.kluent.shouldBe
-import org.amshove.kluent.shouldBeEqualTo
-import org.junit.After
-import org.junit.Assert.*
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
-import java.io.IOException
 
 class ProfileViewModelTestV2 {
 
@@ -34,7 +28,11 @@ class ProfileViewModelTestV2 {
     @Test
     fun `test success scenario`() = runTest {
         val usecase: GetUserProfileV2 = mockk()
-        coEvery { usecase.getProfileDataSync() } coAnswers { flowOf(Result.success(TestingUtils.dummyProfileData))  }
+        coEvery { usecase.getProfileDataSync() } coAnswers {
+            flowOf(
+                Result.success(TestingUtils.dummyProfileData)
+            )
+        }
         val viewModel = ProfileViewModel(usecase)
 
         viewModel.getUserProfile()
@@ -44,26 +42,23 @@ class ProfileViewModelTestV2 {
         viewModel.profileUIState.test {
 //            awaitItem() shouldBe ProfileUIState.Idle
 //            awaitItem() shouldBe ProfileUIState.Loading
-            (awaitItem() as ProfileUIState.Success).data shouldBe  TestingUtils.dummyProfileData
+            (awaitItem() as ProfileUIState.Success).data shouldBe TestingUtils.dummyProfileData
         }
-
     }
 
     @Test
     fun `test failure scenario`() = runTest {
         val usecase: GetUserProfileV2 = mockk()
-        coEvery { usecase.getProfileDataSync() }  coAnswers   { flow { throw IOException("Oops!")}}
+        coEvery { usecase.getProfileDataSync() } coAnswers { flow { throw IOException("Oops!") } }
         val viewModel = ProfileViewModel(usecase)
 
         viewModel.getUserProfile()
-
 
         viewModel.profileUIState.test {
             awaitItem() shouldBe ProfileUIState.Idle
             awaitItem() shouldBe ProfileUIState.Loading
             (awaitItem() as ProfileUIState.Error).message shouldBe "Oops!"
         }
-
     }
 }
 

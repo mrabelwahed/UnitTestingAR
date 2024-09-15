@@ -10,15 +10,10 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
-import java.io.IOException
-
 
 class ProfileViewModel(private val profileUseCase: GetUserProfileV2) : ViewModel() {
     var _profileUiState = MutableStateFlow<ProfileUIState>(ProfileUIState.Idle)
     val profileUIState = _profileUiState.asStateFlow()
-
-
 
     suspend fun getUserProfile() {
 //        viewModelScope.launch {
@@ -30,7 +25,7 @@ class ProfileViewModel(private val profileUseCase: GetUserProfileV2) : ViewModel
 //                .onFailure {
 //                    _profileUiState.value = ProfileUIState.Error(it.localizedMessage ?: "")
 //                }
-////        }
+// //        }
 //
 //        viewModelScope.launch {
 //            _profileUiState.update { ProfileUIState.Loading }
@@ -55,13 +50,10 @@ class ProfileViewModel(private val profileUseCase: GetUserProfileV2) : ViewModel
                     it.isFailure -> _profileUiState.update { ProfileUIState.Error(it.toString()) }
                 }
             }
-            .catch { e->
+            .catch { e ->
                 _profileUiState.update { ProfileUIState.Error(e.message ?: "") }
             }
             .launchIn(viewModelScope)
-
-
-
     }
 }
 
