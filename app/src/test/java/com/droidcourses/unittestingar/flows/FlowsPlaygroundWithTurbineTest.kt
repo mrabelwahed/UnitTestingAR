@@ -90,7 +90,6 @@ class FlowsPlaygroundWithTurbineTest {
         val flow = flow {
             emit(1)
             error("error happened")
-//            throw IllegalStateException("error happened")
         }
 
         flow.test {
