@@ -39,6 +39,8 @@ jobs:
        run: ./gradlew assembleDebug
      - name: Run Ktlint Check
        run: ./gradlew ktlintCheck
+     - name: Run Detekt
+       run: ./gradlew detekt
       
     
           
