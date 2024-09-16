@@ -44,7 +44,7 @@ jobs:
      - name: Run Unit Testing
        run: ./gradlew testDebugUnitTest
      - name: Run Instrumented Tests
-       uses: ReactiveCircus/android-emulator-runner@f0d1ed2dcad93c7479e8b2f2226c83af54494915
+       uses: ReactiveCircus/android-emulator-runner@v2
        with:
         api-level: 33
         target: google_apis
