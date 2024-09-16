@@ -36,7 +36,7 @@ class ProfileViewModelTest {
 
         assertEquals(
             ProfileUIState.Success(TestingUtils.dummyProfileData),
-            viewModel._profileUiState.value
+            viewModel.profileUIState.value
         )
     }
 
@@ -50,7 +50,7 @@ class ProfileViewModelTest {
 
         advanceUntilIdle()
 
-        assertEquals(ProfileUIState.Error("error"), viewModel._profileUiState.value)
+        assertEquals(ProfileUIState.Error("error"), viewModel.profileUIState.value)
     }
 
 //    @After
