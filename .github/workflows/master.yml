@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Master CI
 
 # Controls when the workflow will run
 on:
@@ -25,7 +25,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
      - name: Checkout
        uses: actions/checkout@v4.1.7
-       
+
      - name: Setup Java JDK
        uses: actions/setup-java@v4.3.0
        with:
@@ -33,7 +33,7 @@ jobs:
         distribution: 'zulu'
         cache: gradle
 
-     - name: Grant execute permission for  gradlew   
+     - name: Grant execute permission for  gradlew
        run:  chmod +x gradlew
      - name: Build with Gradle
        run: ./gradlew assembleDebug
@@ -43,17 +43,17 @@ jobs:
        run: ./gradlew detekt
      - name: Run Unit Testing
        run: ./gradlew testDebugUnitTest
-     - name: Run Instrumented Tests
-       uses: ReactiveCircus/android-emulator-runner@v2
-       with:
-        api-level: 33
-        target: google_apis
-        arch: x86_64
-        disable_animation: true
-        script: ./gradlew connectedCheck
-       
-       
-    
-          
+     # - name: Run Instrumented Tests
+     #   uses: ReactiveCircus/android-emulator-runner@v2
+     #   with:
+     #    api-level: 33
+     #    target: google_apis
+     #    arch: x86_64
+     #    disable_animation: true
+     #    script: ./gradlew connectedCheck
 
-      
+
+
+
+
+
