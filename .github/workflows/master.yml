@@ -53,7 +53,7 @@ jobs:
         - name: Assemble Android Instrumentation Tests
           run: ./gradlew assembleDebugAndroidTest
         - name: Upload Android Test APK
-          uses: actions/upload-artifact@v1
+          uses: actions/upload-artifact@v4
           with:
               name: app-debug-androidTest
               path: app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
