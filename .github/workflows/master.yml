@@ -36,6 +36,12 @@ jobs:
     runs-on: [macos-latest]
     steps:
       - uses: actions/checkout@v4.1.7
+      - name: setup Java JDK
+        uses: actions/setup-java@v4.3.0
+        with:
+         java-version: 17
+         distribution: 'zulu'
+         cache: gradle
       - name: Run Instrumentation Tests
         uses: ReactiveCircus/android-emulator-runner@v2
         with:
