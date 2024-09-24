@@ -44,7 +44,7 @@ jobs:
             distribution: 'zulu'
             cache: gradle
         - name: Assemble app debug APK
-          run: ./gradle assembleDebug --stacktrace
+          run: ./gradlew assembleDebug --stacktrace
         - name: Upload APK
           uses: actions/upload-artifact@v4
           with:
