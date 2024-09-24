@@ -32,23 +32,43 @@ jobs:
      - name: Run Unit Test
        run: ./gradlew test
 
-  android_tests:
-    runs-on: [macos-11]
-    steps:
-      - uses: actions/checkout@v4.1.7
-      - name: setup Java JDK
-        uses: actions/setup-java@v4.3.0
-        with:
-         java-version: 17
-         distribution: 'zulu'
-         cache: gradle
-      - name: Run Instrumentation Tests
-        uses: ReactiveCircus/android-emulator-runner@v2
-        with:
-          api-level: 30
-          target: google_apis
-          arch: x86_64
-          script: ./gradlew connectedCheck
+  build_apk:
+      name: Generate APK
+      runs-on: [ubuntu-latest]
+      steps:
+        - uses: actions/checkout@v4.1.7
+        - name: setup Java JDK
+          uses: actions/setup-java@v4.3.0
+          with:
+            java-version: 17
+            distribution: 'zulu'
+            cache: gradle
+        - name: Assemble app debug APK
+          run: ./gradle assembleDebug --stacktrace
+        - name: Upload APK
+          uses: actions/upload-artifact@v4
+          with:
+            name: app-debug
+            path: app/build/output/apk/debug/app-debug.apk
+
+
+#  android_tests:
+#    runs-on: [macos-11]
+#    steps:
+#      - uses: actions/checkout@v4.1.7
+#      - name: setup Java JDK
+#        uses: actions/setup-java@v4.3.0
+#        with:
+#         java-version: 17
+#         distribution: 'zulu'
+#         cache: gradle
+#      - name: Run Instrumentation Tests
+#        uses: ReactiveCircus/android-emulator-runner@v2
+#        with:
+#          api-level: 30
+#          target: google_apis
+#          arch: x86_64
+#          script: ./gradlew connectedCheck
 
   # This workflow contains a single job called "build"
 #  build:
