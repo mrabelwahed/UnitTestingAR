@@ -20,6 +20,13 @@ jobs:
     steps:
      - name: Checkout
        uses: actions/checkout@v4.1.7
+     - name: setup Java JDK
+       uses: actions/setup-java@v4.3.0
+       with:
+         java-version: 17
+         distribution: 'zulu'
+         cache: gradle
+
      - name: Grant Permissions For gradlew
        run: chmod +x gradlew
      - name: Run Unit Test
