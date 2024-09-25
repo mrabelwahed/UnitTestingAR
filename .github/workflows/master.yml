@@ -63,7 +63,7 @@ jobs:
 
   firebase:
    name: Run UI tests with Firebase Test Lab
-   needs: apk
+   needs: build_apk
    runs-on: [ubuntu-latest]
    steps:
      - uses: actions/checkout@v4.1.7
