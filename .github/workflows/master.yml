@@ -75,11 +75,16 @@ jobs:
        uses: actions/download-artifact@v4
        with:
          name: app-debug-androidTest
-     - name: Login to Google Cloud
-       uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+     - name: Auth to Google Cloud
+       uses: 'google-github-actions/auth@v2'
        with:
-         version: '>=270.0.0'
          service_account_key: ${{secrets.GCLOUD_AUTH}}
+
+     - name: Setup Google Cloud
+       uses: 'google-github-actions/setup-gcloud@v2'
+       with:
+         version: '>=363.0.0'
+
      - name: Set Current Project
        run: gcloud config set project ${{ secrets.FIREBASE_PROJECT_ID }}
      - name: Run Instrumentation Tests in Firebase Test Lab
