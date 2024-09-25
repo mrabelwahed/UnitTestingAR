@@ -78,7 +78,7 @@ jobs:
      - name: Auth to Google Cloud
        uses: 'google-github-actions/auth@v2'
        with:
-         service_account_key: ${{secrets.GCLOUD_AUTH}}
+         service_account: ${{secrets.GCLOUD_AUTH}}
 
      - name: Setup Google Cloud
        uses: 'google-github-actions/setup-gcloud@v2'
