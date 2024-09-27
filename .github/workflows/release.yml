@@ -1,0 +1,32 @@
+name: Android Feature Branch CI
+
+on:
+  push:
+    branches:
+      - 'release*'
+
+jobs:
+  unit_tests:
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.7
+      - name: setup Java JDK
+        uses: actions/setup-java@v4.3.0
+        with:
+          java-version: 17
+          distribution: 'zulu'
+          cache: gradle
+
+      - name: Grant Permissions For gradlew
+        run: chmod +x gradlew
+      - name: Run Unit Test
+        run: ./gradlew test
+
+  signing_apk:
+    runs-on: [ubuntu-latest]
+    needs: [unit_tests]
+    steps:
+      - name: Generate Release APK
+        run: ./gradlew assembleRelease
+
