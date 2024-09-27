@@ -30,8 +30,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4.1.7
       - name: setup Java JDK
-      - uses: actions/setup-java@v4.3.0
-      - with:
+        uses: actions/setup-java@v4.3.0
+        with:
          java-version: 17
          distribution: 'zulu'
          cache: gradle
