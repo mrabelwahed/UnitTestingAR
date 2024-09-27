@@ -37,6 +37,11 @@ jobs:
          cache: gradle
       - name: Grant Permissions For gradlew
         run: chmod +x gradlew
-      - name: Generate Release APK
-        run: ./gradlew assembleRelease
+      - name: Version Bump
+        uses: chkfung/android-version-actions@v1.2.1
+        with:
+         gradlePath: app/build.gradle.kts
+         versionCode: ${{ github.run_number }}
+      - name: Generate Release Bundle
+        run: ./gradlew bundleRelease
 
