@@ -1,4 +1,4 @@
-name: Android Feature Branch CI
+name: Android Release CI
 
 on:
   push:
