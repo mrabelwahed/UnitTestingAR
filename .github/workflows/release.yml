@@ -28,7 +28,7 @@ jobs:
     needs: [unit_tests]
     steps:
       - name: Grant Permissions For gradlew
-      - run: chmod +x gradlew
+        run: chmod +x gradlew
       - name: Generate Release APK
         run: ./gradlew assembleRelease
 
