@@ -62,7 +62,7 @@ jobs:
       - name: Download Release Build
         uses: actions/download-artifact@v4
         with:
-         name: release.apk
+         name: release.aab
 
 
 #  qa_build:
