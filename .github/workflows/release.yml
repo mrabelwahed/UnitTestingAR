@@ -37,11 +37,20 @@ jobs:
          cache: gradle
       - name: Grant Permissions For gradlew
         run: chmod +x gradlew
-      - name: Version Bump
-        uses: chkfung/android-version-actions@v1.2.3
-        with:
-         gradlePath: app/build.gradle.kts
-         versionCode: ${{ github.run_number }}
+#      - name: Version Bump
+#        uses: chkfung/android-version-actions@v1.2.3
+#        with:
+#         gradlePath: app/build.gradle.kts
+#         versionCode: ${{ github.run_number }}
       - name: Generate Release Bundle
         run: ./gradlew bundleRelease
+      - name: sign Release
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: app/build/outputs/bundle/release
+          signingKeyBase64: ${{ secrets.KEYSTORE }}
+          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
+          alias: ${{ secrets.ALIAS_KEY }}
+          keyPassword: ${{ secrets.ALIAS_KEY_PASSWORD }}
+
 
