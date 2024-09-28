@@ -60,7 +60,7 @@ jobs:
           name: release.aab
           path: ${{steps.sign_app.outputs.signedReleaseFile}}
       - name: Download Release Build
-      - uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v4
         with:
          name: release.apk
 
