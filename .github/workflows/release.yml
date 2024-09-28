@@ -70,7 +70,7 @@ jobs:
           appId: ${{secrets.FIREBASE_PROJECT_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: QA
-          file: release.aab
+          file: ${{steps.sign_app.outputs.signedReleaseFile}}
 
 
 #  qa_build:
